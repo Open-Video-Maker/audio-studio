@@ -13,6 +13,7 @@ import {
   Textarea,
 } from "@mantine/core";
 import { IconPlayerPlay } from "@tabler/icons-react";
+import useSWR from "swr";
 import * as R from "ramda";
 
 import { VoicePitch, VoicePitchValues } from "./constants";
@@ -27,7 +28,14 @@ export default function Playground() {
     VoicePitch.Default
   );
 
-  const voices: any[] = [];
+  const [audio, setAudio] = useState<ArrayBuffer>();
+  const [audioUrl, setAudioUrl] = useState<string>("");
+
+  const {
+    data: voices,
+    isLoading: isLoadingVoices,
+    error: voicesError,
+  } = useSWR("/api/v1/voices");
 
   const voicesData = useMemo(() => {
     if (!voices) return {};
@@ -94,6 +102,28 @@ export default function Playground() {
     };
 
     console.log(payload);
+
+    const res = await fetch("http://localhost:3000/api/v1/tts/ssml", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(payload),
+    });
+    // const { ssml } = await res.json();
+
+    // console.log(payload, ssml);
+    const buffer = await res.arrayBuffer();
+    setAudio(buffer);
+    setAudioUrl(URL.createObjectURL(new Blob([buffer], { type: "audio/wav" })));
+
+    const audioContext = new AudioContext();
+    audioContext.decodeAudioData(buffer, (audioBuffer) => {
+      const source = audioContext.createBufferSource();
+      source.buffer = audioBuffer;
+      source.connect(audioContext.destination);
+      source.start();
+    });
   };
 
   const textValid = text.length > 0;
