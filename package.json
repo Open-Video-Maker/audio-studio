@@ -2,9 +2,10 @@
   "name": "audio-studio",
   "version": "0.1.0",
   "scripts": {
-    "dev:client": "vite dev",
-    "dev:server": "bun run --watch server/index.ts",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "nps",
+    "dev": "nps dev",
+    "build": "nps build",
+    "test": "nps test"
   },
   "dependencies": {
     "@elysiajs/html": "^0.7.3",
@@ -23,6 +24,8 @@
     "@vitejs/plugin-react": "^4.1.0",
     "autoprefixer": "^10.4.16",
     "bun-types": "latest",
+    "nps": "^5.10.0",
+    "nps-utils": "^1.7.0",
     "postcss": "^8.4.31",
     "postcss-preset-mantine": "^1.9.0",
     "postcss-simple-vars": "^7.0.1",

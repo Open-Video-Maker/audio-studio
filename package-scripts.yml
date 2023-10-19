@@ -1,0 +1,13 @@
+scripts:
+  default: nps dev
+
+  dev:
+    default: concurrent "nps dev.server" "nps dev.client"
+    server: bun run --watch server/index.ts
+    client: vite dev
+
+  build:
+
+  lint:
+
+  test:
