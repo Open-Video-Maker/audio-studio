@@ -101,8 +101,6 @@ export default function Playground() {
       voicePitch,
     };
 
-    console.log(payload);
-
     const res = await fetch("http://localhost:3000/api/v1/tts/ssml", {
       method: "POST",
       headers: {
@@ -110,9 +108,7 @@ export default function Playground() {
       },
       body: JSON.stringify(payload),
     });
-    // const { ssml } = await res.json();
 
-    // console.log(payload, ssml);
     const buffer = await res.arrayBuffer();
     setAudio(buffer);
     setAudioUrl(URL.createObjectURL(new Blob([buffer], { type: "audio/wav" })));
