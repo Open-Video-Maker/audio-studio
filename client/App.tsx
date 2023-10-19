@@ -1,26 +1,15 @@
 import "@mantine/core/styles.css";
 import { MantineProvider } from "@mantine/core";
-import { useState } from "react";
-import { Button } from "@mantine/core";
+
+import { theme } from "./theme";
+import Playground from "./playground";
 
 function App() {
-  const [count, setCount] = useState(0);
-
   return (
-    <MantineProvider>
-      <h1>Vite + React</h1>
-      <Button variant="filled">Button</Button>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+    <MantineProvider theme={theme}>
+      <main className="flex flex-col items-center py-8 w-1/2 m-auto">
+        <Playground />
+      </main>
     </MantineProvider>
   );
 }
