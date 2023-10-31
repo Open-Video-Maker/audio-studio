@@ -8,6 +8,8 @@
     "test": "nps test"
   },
   "dependencies": {
+    "@aws-sdk/client-s3": "^3.435.0",
+    "@aws-sdk/s3-request-presigner": "^3.435.0",
     "@elysiajs/cors": "^0.7.1",
     "@elysiajs/html": "^0.7.3",
     "@elysiajs/swagger": "^0.7.3",
